@@ -13,13 +13,14 @@ docker compose up -d
 ```
 
 - Postgres (with pgvector) runs on port 5432
-- pgai runs on port 8080
+docker compose up -d
 - Jupyter Notebook runs on port 8888 (token: pgai)
 
-## 2. Install Extensions in Postgres
 
-Connect to the Postgres container and run:
-
+This will start:
+- PostgreSQL (pgvector)
+- Jupyter Notebook
+- Vectorizer Worker (`timescale/pgai-vectorizer-worker`)
 ```fish
 docker compose exec postgres psql -U pgai -d pgai_db -c "CREATE EXTENSION IF NOT EXISTS vector;"
 docker compose exec postgres psql -U pgai -d pgai_db -c "CREATE EXTENSION IF NOT EXISTS pgvectorscale;"
