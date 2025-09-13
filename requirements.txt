@@ -1,0 +1,5 @@
+pgai
+pgai[vectorizer-worker]
+psycopg[binary]
+openai
+uv

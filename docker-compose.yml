@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  vectorizer-worker:
+    image: timescale/pgai-vectorizer-worker:latest
+    environment:
+      MODEL: sentence-transformers/all-MiniLM-L6-v2
+    depends_on:
+      - postgres
+  postgres:
+    image: ankane/pgvector:latest
+    environment:
+      POSTGRES_USER: pgai
+      POSTGRES_PASSWORD: pgai_pass
+      POSTGRES_DB: pgai_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  jupyter:
+    image: jupyter/base-notebook:latest
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./notebooks:/home/jovyan/work
+    environment:
+      JUPYTER_TOKEN: "pgai"
+
+volumes:
+  pgdata:
